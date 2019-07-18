@@ -40,6 +40,20 @@
 			<artifactId>jeesite-module-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
+
+		<!-- CMS模块 -->
+		<dependency>
+			<groupId>com.jeesite</groupId>
+			<artifactId>jeesite-module-cms</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<!-- jxc模块 -->
+		<dependency>
+			<groupId>com.jeesite</groupId>
+			<artifactId>jxc</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
 		
 		<!-- 在线API文档 -->
 		<dependency>
@@ -68,7 +82,22 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/taglibs/standard -->
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+
 		<!-- 自定义jar依赖包演示
 		<dependency>
 			<groupId>com.jeesite</groupId>

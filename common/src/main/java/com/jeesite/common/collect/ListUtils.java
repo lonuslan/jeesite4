@@ -38,6 +38,7 @@ public class ListUtils extends org.apache.commons.collections.ListUtils {
     public static boolean inString(String str, List<String> strs){
 		if (str != null && strs != null){
         	for (String s : strs){
+        		//StringUtils.trim(s)删除头尾空白符的字符串....
         		if (str.equals(StringUtils.trim(s))){
         			return true;
         		}

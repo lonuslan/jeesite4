@@ -20,12 +20,12 @@ demoMode: false
 
 server:
 
-  port: 8980
+  port: 8080
   servlet:
     context-path: /js
   tomcat:
     uri-encoding: UTF-8
-    
+
 #======================================#
 #========== Database sttings ==========#
 #======================================#
