@@ -55,7 +55,7 @@ public class ExcelImport implements Closeable {
 	private static Logger log = LoggerFactory.getLogger(ExcelImport.class);
 			
 	/**
-	 * 工作薄对象
+	 * 工作薄对象，可包含多张sheet工作表
 	 */
 	private Workbook wb;
 	

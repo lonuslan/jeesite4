@@ -188,7 +188,10 @@ $('#btnImport').click(function(){
 		        return false;
 		    }
 			js.ajaxSubmitForm(form.inputForm, function(data){
+
+				console.log(data);
 				js.showMessage(data.message);
+				console.log(data.message);
 				if(data.result == Global.TRUE){
 					js.layer.closeAll();
 				}

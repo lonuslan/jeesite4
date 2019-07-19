@@ -3,7 +3,11 @@
  */
 package com.jeesite.modules.jxc.entity;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+
+import com.jeesite.common.utils.excel.annotation.ExcelField;
+import com.jeesite.common.utils.excel.annotation.ExcelFields;
 import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
@@ -26,7 +30,17 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 	}, orderBy="a.update_date DESC"
 )
 public class Product extends DataEntity<Product> {
-	
+
+	@Valid
+	@ExcelFields({
+			@ExcelField(title = "商品id", attrName = "id", align = ExcelField.Align.CENTER),
+			@ExcelField(title = "商品名称", attrName = "productName", align = ExcelField.Align.CENTER),
+			@ExcelField(title = "商品价格", attrName = "productPrice", align = ExcelField.Align.CENTER),
+			@ExcelField(title = "商品重量", attrName = "productWeight", align = ExcelField.Align.CENTER),
+			@ExcelField(title = "更新时间", attrName = "updateDate", align = ExcelField.Align.CENTER),
+			@ExcelField(title = "评论", attrName = "remarks", align = ExcelField.Align.CENTER)
+	})
+
 	private static final long serialVersionUID = 1L;
 	private String productName;		// 商品名称
 	private Double productWeight;		// 商品重量

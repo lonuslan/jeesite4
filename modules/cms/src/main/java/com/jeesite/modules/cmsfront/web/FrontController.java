@@ -59,7 +59,7 @@ public class FrontController extends BaseController{
 		Site site = CmsUtils.getSite(Site.MAIN_SITE_CODE);
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
-		return "modules/cmsfront/themes/"+site.getTheme()+"/CMSIndex";
+		return "modules/cmsfront/themes/"+site.getTheme()+"/frontIndex";
 //		return REDIRECT + frontPath + "/index-" + Site.MAIN_SITE_CODE + ".html";
 	}
 	
