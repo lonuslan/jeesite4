@@ -1,0 +1,139 @@
+<% layout('/layouts/default.html', {title: 'product_detail管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text('product_detail管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('jxc:productDetail:edit')){ %>
+					<a href="${ctx}/jxc/productDetail/form" class="btn btn-default btnTool" title="${text('新增product_detail')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+
+				<div class="btn-group">
+					<a href="javascript:" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-navicon"></i> <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="javascript:" id="btnExport"><i class="glyphicon glyphicon-export"></i> ${text('导出')}</a></li>
+						<li><a href="javascript:" id="btnImport"><i class="glyphicon glyphicon-import"></i> ${text('导入')}</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${productDetail}" action="${ctx}/jxc/productDetail/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('product_from')}：</label>
+					<div class="control-inline">
+						<#form:input path="productFrom" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('product_to')}：</label>
+					<div class="control-inline">
+						<#form:input path="productTo" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('direct_type')}：</label>
+					<div class="control-inline">
+						<#form:input path="directType" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('director')}：</label>
+					<div class="control-inline">
+						<#form:input path="director" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('direct_adress')}：</label>
+					<div class="control-inline">
+						<#form:input path="directAdress" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('direct_repository')}：</label>
+					<div class="control-inline">
+						<#form:input path="directRepository" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('status')}：</label>
+					<div class="control-inline width-120">
+						<#form:select path="status" dictType="sys_search_status" blankOption="true" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('remark')}：</label>
+					<div class="control-inline">
+						<#form:input path="remark" maxlength="500" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('verify_type')}：</label>
+					<div class="control-inline">
+						<#form:input path="verifyType" maxlength="20" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('product_id')}：</label>
+					<div class="control-inline">
+						<#form:input path="productId" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text("始发地")}', name:'productFrom', index:'a.product_from', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/jxc/productDetail/form?id='+row.id+'" class="btnList" data-title="${text("编辑product_detail")}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text("目的地")}', name:'productTo', index:'a.product_to', width:150, align:"left"},
+		{header:'${text("所属类型")}', name:'directType', index:'a.direct_type', width:150, align:"left"},
+		{header:'${text("经手人")}', name:'director', index:'a.director', width:150, align:"left"},
+		{header:'${text("所属地址")}', name:'directAdress', index:'a.direct_adress', width:150, align:"left"},
+		{header:'${text("所属仓库")}', name:'directRepository', index:'a.direct_repository', width:150, align:"left"},
+		{header:'${text("状态")}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text("未知")}', true);
+		}},
+		{header:'${text("备注")}', name:'remark', index:'a.remark', width:150, align:"left"},
+		{header:'${text("审核状态")}', name:'verifyType', index:'a.verify_type', width:150, align:"left"},
+		{header:'${text("商品id")}', name:'productId', index:'a.product_id', width:150, align:"left"},
+		{header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+				var actions = [];
+			<% if(hasPermi('jxc:product:edit')){ %>
+					actions.push('<a href="${ctx}/jxc/productDetail/form?id='+row.id+'" class="btnList" title="${text("编辑product")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+					if (row.status == Global.STATUS_NORMAL){
+						actions.push('<a href="${ctx}/jxc/productDetail/disable?id='+row.id+'" class="btnList" title="${text("停用product")}" data-confirm="${text("确认要停用该product吗？")}"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+					}
+					if (row.status == Global.STATUS_DISABLE){
+						actions.push('<a href="${ctx}/jxc/productDetail/enable?id='+row.id+'" class="btnList" title="${text("启用product")}" data-confirm="${text("确认要启用该product吗？")}"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+					}
+					actions.push('<a href="${ctx}/jxc/productDetail/delete?id='+row.id+'" class="btnList" title="${text("删除product")}" data-confirm="${text("确认要删除该product吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				<% } %>
+				return actions.join('');
+			}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+
+	}
+});
+</script>

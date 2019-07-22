@@ -31,7 +31,6 @@ import javax.validation.ConstraintViolationException;
 @Transactional(readOnly=true)
 public class ProductService extends CrudService<ProductDao, Product> {
 
-
     /*@Override
     public void addDataScopeFilter(Product entity, String ctrlPermi) {
     entity.getSqlMap().getDataScope().addFilter("Product", "a.id", "a.create_by", ctrlPermi);
@@ -62,7 +61,7 @@ public class ProductService extends CrudService<ProductDao, Product> {
                     Product product1 = this.get(product.getId());
                     if(product1 == null){
                         //数据库没有这条数据，可以导入
-                        this.save(product);
+                        save(product);
                         successNum++;
                         successMsg.append("<br/>"+successNum+"、商品名称"+product.getProductName()+"导入成功");
                     }else if(isUpdateSupport){
